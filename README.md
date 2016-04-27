@@ -1,3 +1,3 @@
 # Kata
 
-Perform the Kata found at [CodeKata](codekata.com).
+Perform the Kata found at [CodeKata](http://codekata.com).
