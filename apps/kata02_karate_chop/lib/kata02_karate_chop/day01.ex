@@ -20,16 +20,10 @@ defmodule Kata02KarateChop.Day01 do
   end
 
   defp internal_chop(target, list, idx) do
-    -- Had difficulty here with getting the pipes to work correctly. They do
-    -- not work the way that I would expect them to work coming from haskell
-    -- and elm.
-    l = list |> length 
-    split_length = div(l, 2)
-    {first, sec} = list |> Enum.split(split_length)
+    split_length = list |> length |> div(2)
+    {first, sec = [h|_]} = list |> Enum.split(split_length)
 
-    [t] = sec |> Enum.take(1)
-
-    if target < t do
+    if target < h do
       internal_chop(target, first, idx)
     else
       internal_chop(target, sec, idx + split_length)

@@ -1,5 +1,19 @@
 # [Kata02 - Karate Chop](http://codekata.com/kata/kata02-karate-chop/)
 
+## Day 1
+
+I decided to use the Enum library for everything the first day. It is going to
+be hard to switch to different approaches in future days. The Enum library is
+excellent for working with lists like this.
+
+A beautiful aspect of a well designed functional programming language, when
+the code was good enough to compile and get past the first three tests, all of
+the other tests could immediately pass. Functional languages are great at
+reducing the off-by-one errors so common in algorithms like these.
+
+
+## Kata
+
 The following is taken directly from the CodeKata.com site for reference.
 
 > A binary chop (sometimes called the more prosaic binary search) finds the 
