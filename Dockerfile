@@ -1,5 +1,5 @@
 FROM msaraiva/elixir-dev:1.2.4
-MAINTAINER Jason Hursey <jh224606@gmail.com>
+MAINTAINER b1collector <b1collector@gmail.com>
 
 RUN export uid=1000 gid=1000 && \
     mkdir -p /home/developer && \
