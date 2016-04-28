@@ -1,6 +1,6 @@
 # [Kata02 - Karate Chop](http://codekata.com/kata/kata02-karate-chop/)
 
-## Day 1
+## Day 01
 
 I decided to use the Enum library for everything the first day. It is going to
 be hard to switch to different approaches in future days. The Enum library is
@@ -11,6 +11,18 @@ the code was good enough to compile and get past the first three tests, all of
 the other tests could immediately pass. Functional languages are great at
 reducing the off-by-one errors so common in algorithms like these.
 
+## Day 02
+
+Today I used a recursive function that left the list intact. I used a upper
+and lower bound to create a window for the function to work within.
+
+Going in this direction made things complicated. The code is shorter but also
+harder to read. I had to wrestle with off-by-one errors and wierd edge cases.
+I was also not able to use pattern matching as effectively. 
+
+## Day 03
+
+Macros.
 
 ## Kata
 
