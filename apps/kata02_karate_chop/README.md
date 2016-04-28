@@ -17,7 +17,7 @@ Today I used a recursive function that left the list intact. I used a upper
 and lower bound to create a window for the function to work within.
 
 Going in this direction made things complicated. The code is shorter but also
-harder to read. I had to wrestle with off-by-one errors and wierd edge cases.
+harder to read. I had to wrestle with off-by-one errors and weird edge cases.
 I was also not able to use pattern matching as effectively. 
 
 ## Day 03
