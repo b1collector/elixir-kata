@@ -22,7 +22,12 @@ I was also not able to use pattern matching as effectively.
 
 ## Day 03
 
-Macros.
+A silly solution. I converted the list into a binary tree and then searched
+that. Since the list was already sorted, creating a tree was trivial. 
+
+## Day 04
+
+Macros?
 
 ## Kata
 
