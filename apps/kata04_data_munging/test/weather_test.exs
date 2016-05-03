@@ -83,32 +83,18 @@ defmodule WeatherTest do
 
   end
 
-  test "spread compare" do
-    day1 = %{day: 6, min_temp: 32, max_temp: 64}
-    day2 = %{day: 4, min_temp: 54, max_temp: 60}
-
-    smaller = Weather.spread_compare(day1, day2)
-
-    assert(smaller == day2)
-  end
-
   test "smaller spread for empty list" do
-    {_, spread} = Weather.find_smallest_spread([])
+    spread = Weather.find_smallest_spread([])
 
-    IO.inspect(spread)
     assert(spread.day == -1)
   end
 
-  # test "Entire program" do
-  #   d = Path.join([File.cwd!(), "assets","weather.dat"])
-  #         |> File.read!()
-  #         |> Weather.parse()
-  #         |> IO.inspect()
-  #         |> Weather.find_smallest_spread()
+  test "Entire program" do
+    d = Path.join([File.cwd!(), "assets","weather.dat"])
+          |> Weather.program()
 
-  #   IO.inspect(d)
-  #   assert(d.day == 14)
-  #   assert(d.min_temp == 59)
-  #   assert(d.max_temp == 61)
-  # end
+    assert(d.day == 14)
+    assert(d.min_temp == 59)
+    assert(d.max_temp == 61)
+  end
 end

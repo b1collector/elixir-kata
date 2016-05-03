@@ -2,19 +2,25 @@ defmodule Weather do
   @moduledoc """
   Parse a data file to find the new with the smallest temperature spread.
   """
+  def program (path) do
+    path
+      |> File.read!()
+      |> Weather.parse()
+      |> Weather.find_smallest_spread()
+  end
 
   def find_smallest_spread(data) do
     default_day = %{day: -1, min_temp: -9999, max_temp: 9999}
-    data |> Enum.map_reduce(default_day, &spread_compare/2)
+    
+    data 
+      |> Enum.sort_by(&spread/1)
+      |> Enum.at(0)
+      |> with_default(default_day)
+
   end
 
-  def spread_compare(d1, d2) do
-    if spread(d1) < spread(d2) do
-      d1
-    else
-      d2
-    end
-  end
+  defp with_default(nil, default), do: default 
+  defp with_default(a, _), do: a 
 
   def spread(%{min_temp: mn, max_temp: mx}) do
     mx - mn
@@ -35,15 +41,16 @@ defmodule Weather do
       |> Stream.filter(fn x -> x != "" end) 
       |> Enum.take(3)
       |> Enum.map(&Integer.parse/1)
-      |> format
+      |> format()
 
   end
 
-  defp format([a, b, c]) when a == :error or b == :error or c == :error do
-    :skipped_line
-  end
 
   defp format([{d, _}, {mx, _}, {mn, _}]) do
     %{day: d, min_temp: mn, max_temp: mx}
+  end
+
+  defp format(_) do
+    :skipped_line
   end
 end
