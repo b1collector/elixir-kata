@@ -10,7 +10,7 @@ defmodule FootballTest do
     lines = ["       Team            P     W    L   D    F      A     Pts\n",
              "    1. Arsenal    38    26   9  3    79 -  36    87\n",
              "    2. Liverpool       38    24   8   6    67  -  30    80\n",]
-    result = lines |> Football.parse 
+    result = lines |> Football.parse_stream
 
     arsenal = result |> Enum.at(0)
     liverpool = result |> Enum.at(1)
@@ -21,12 +21,11 @@ defmodule FootballTest do
     assert(liverpool == expected1)
   end
 
+  test "spread" do
+    s = %{goals_for: 10, goals_against: 5} |> Football.calc()
 
-  test "program execution" do
-    path = Path.join([File.cwd!, "assets", "football.dat"])
-    smallest = path |> Football.program()
-
-    assert(smallest.team == "Aston_Villa")
+    assert(s == 5)
   end
+
 
 end

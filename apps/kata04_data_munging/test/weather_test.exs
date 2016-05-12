@@ -1,26 +1,6 @@
 defmodule WeatherTest do
   use ExUnit.Case
 
-  test "happy path parse a string into map" do
-    str = "   1  88    59    74          53.8       0.00 F       280  9.6 270  17  1.6  93 23 1004.5"
-
-    [%{day: d, min_temp: mn, max_temp: mx}] = Weather.parse(str)
-
-    assert(d == 1)
-    assert(mn == 59)
-    assert(mx == 88)
-  end
-
-  test "handle * parse a string into a map" do
-    str = "  26  97*   64    81          70.4       0.00 H       050  5.1 200  12  4.0 107 45 1014.9"
-
-    [%{day: d, min_temp: mn, max_temp: mx}] = Weather.parse(str)
-
-    assert(d == 26)
-    assert(mn == 64)
-    assert(mx == 97)
-  end
-
   test "couple lines" do
     str = """
     1  88    59    74          53.8       0.00 F       280  9.6 270  17  1.6  93 23 1004.5
@@ -28,7 +8,7 @@ defmodule WeatherTest do
     """
 
     [ %{day: d1, min_temp: mn1, max_temp: mx1},
-      %{day: d2, min_temp: mn2, max_temp: mx2} ] = Weather.parse(str)
+      %{day: d2, min_temp: mn2, max_temp: mx2} ] = str |> String.split("\n") |> Weather.parse_stream() |> Enum.to_list()
 
     assert(d1 == 1)
     assert(mn1 == 59)
@@ -49,7 +29,7 @@ defmodule WeatherTest do
     """
 
     [ %{day: d1, min_temp: mn1, max_temp: mx1},
-      %{day: d2, min_temp: mn2, max_temp: mx2} ] = Weather.parse(str)
+      %{day: d2, min_temp: mn2, max_temp: mx2} ] = str |> String.split("\n") |> Weather.parse_stream() |> Enum.to_list()
 
     assert(d1 == 1)
     assert(mn1 == 59)
@@ -60,41 +40,16 @@ defmodule WeatherTest do
     assert(mx2 == 79)
   end
 
-  test "openning a file and parsing it" do
-    d = Path.join([File.cwd!(), "assets","weather.dat"])
-          |> File.read!()
-          |> Weather.parse()
-
-    day1 = Enum.at(d, 0)
-    assert(day1.day == 1)
-    assert(day1.min_temp == 59)
-    assert(day1.max_temp == 88)
-
-    day2 = Enum.at(d, 1)
-    assert(day2.day == 2)
-    assert(day2.min_temp == 63)
-    assert(day2.max_temp == 79)
-  end
-
   test "spread calc" do
     day1 = %{day: 6, min_temp: 32, max_temp: 64}
-    s = Weather.spread(day1)
+    s = Weather.calc(day1)
     assert(s == 32)
 
   end
 
-  test "smaller spread for empty list" do
-    spread = Weather.find_smallest_spread([])
+  test "smaller spread for object" do
+    spread = Weather.calc(%{})
 
-    assert(spread.day == -1)
-  end
-
-  test "Entire program" do
-    d = Path.join([File.cwd!(), "assets","weather.dat"])
-          |> Weather.program()
-
-    assert(d.day == 14)
-    assert(d.min_temp == 59)
-    assert(d.max_temp == 61)
+    assert(spread == 99999)
   end
 end
